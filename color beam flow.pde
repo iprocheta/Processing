@@ -1,7 +1,4 @@
-/*
-NAME: PROCHETA
-PROBLEM: MAKE AN ANIMATION : Color flow 
-*/
+
 
 Drops d[];
 void setup()
