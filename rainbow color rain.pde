@@ -14,8 +14,8 @@ void setup()
 void draw()
 {
   //background(0);   //manupulate rain drop size
- // fill(0,70);  //change rain drop size
-  //rect(0,0,width,height); //change rain drop size
+ fill(0,70);  //change rain drop size
+ rect(0,0,width,height); //change rain drop size
   
 for(int i=0;i<500;i++)
 {
