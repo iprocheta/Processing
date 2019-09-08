@@ -1,6 +1,3 @@
-/*
-By Procheta
-*/
 
 Drops d[];
 void setup()
