@@ -1,8 +1,4 @@
 
-/*
-  NAME: PROCHETA
-  PROBLEM:Create a simple, regular static 8 lines pattern with loop.
-*/
 
 float xPos = 0;
 float yPos = 25;
