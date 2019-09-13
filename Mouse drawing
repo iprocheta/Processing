@@ -1,8 +1,4 @@
 
-/*
-Name: PROCHETA
-Problem: Make an interactive drawing for which some aspects are controlled using the mouse position on the CANVAS.
-*/
 boolean firstPoint;
 void setup() 
 {
