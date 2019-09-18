@@ -1,0 +1,52 @@
+/*
+PROBLEM:Define a method that draws a shape or form using a loop. The method should take three arguments to control its position and size. Demonstrate that method by creating many such shapes on the display window in a static or dynamic arrangement.
+*/
+
+PVector position = new PVector(0,0);
+
+void setup() {
+  size(1000, 500);
+  smooth();
+  fill(#FA0D0D);
+  stroke(#FA0D0D);
+  background(255);
+  
+}
+
+void draw() {
+  position=new PVector(width*0.1, height*0.4);
+  polygon(position, 70, 3);  // Triangle
+   
+  position=new PVector(width*0.3, height*0.4);
+  polygon(position, 70,4);  // Diamond
+  
+  position=new PVector(width*0.5, height*0.4);
+  polygon(position, 70, 5);  // Pentagon
+  
+  position=new PVector(width*0.7, height*0.4);
+  polygon(position, 70, 6);  // Hexagon
+  
+  position=new PVector(width*0.1, height*0.8);
+  polygon(position, 70, 7);  // Heptagon
+
+  position=new PVector(width*0.3, height*0.8);
+  polygon(position, 70, 8);  // Octagon
+  
+  position=new PVector(width*0.5, height*0.8);
+  polygon(position, 70, 10);  // Decagon
+
+  position=new PVector(width*0.7, height*0.8);
+  polygon(position, 70, 40);  // Cyclic
+}
+ 
+void polygon(PVector position, float radius, int npoints)
+{
+  float angle = TWO_PI / npoints;
+  beginShape();
+  for (float a = 0; a < TWO_PI; a += angle) {
+    float sx = position.x + cos(a) * radius;
+    float sy = position.y + sin(a) * radius;
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
+}
