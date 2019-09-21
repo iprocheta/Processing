@@ -1,0 +1,27 @@
+
+void setup() {
+  size(500, 500); 
+  rectMode(CENTER); //draw rectangle from center
+  colorMode(HSB, 360); //customize color range, 360 is the maximum range of all HSB color value
+  smooth();  
+  stroke(30, 40);
+  
+}
+void draw () {
+    background(0);
+    float rotation= (mouseX - mouseY); //roate anticlockwise with the cursour  
+    pattern(0,0,20, rotation,12);
+  }
+
+void pattern(float x, float y, int size, float rotation, int rectno) //rectno defines the number of produced rectangle 
+{
+  translate(width / 2, height / 2); // translate shape center to the middle of the canvas, (x,y)= (250,250) position. 
+  for (int count = size*rectno; count > 0; count = count - size) // counter defines the range of how many shape will be drawn,rectangle size is decreameting from count value by subtracting size value each loop cycle from previous loop cycle,
+  {
+   
+    fill(360-count, 300-count, 360-count); //change color value each time with loop on HSB mode, for example if count =300, hsb color value is = (60,0,60)
+    rotate(rotation);
+    rect(x, y, count, count);  // count = rectangle width and height 
+    
+  }
+}
