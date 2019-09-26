@@ -1,0 +1,273 @@
+/*
+NAME: PROCHETA NAG
+Display the progress of time in a non-traditional way.
+*/
+int numclock = 10000;
+
+CoolClock[] clock = new CoolClock[numclock];
+int ScreenWidth = 800;
+int ScreenHeight = 600;
+
+PFont f;
+
+float fadeAmount;
+float maxLen = 100;
+float strokeAmount;
+
+//int secondCount = 0;
+void setup() 
+{
+  size(800, 600);
+  colorMode(HSB, 100);
+  background(255);  
+  randomize();
+  f = createFont("Avenir",25,true);
+}
+
+void randomize()
+{  
+  numclock =(int) random(50,58); // take a random number to draw clock that much time 
+  fadeAmount = random(2.5,7);
+
+  maxLen = random(32,38);
+  strokeAmount = random(0.02,0.05);
+  
+  for(int i=0; i<numclock; i++) //
+  {
+    clock[i]=new CoolClock(i/5000.0);
+  }
+  
+  print("NP"+numclock + " ML "+ maxLen + " SA " + strokeAmount + " fadeA"+fadeAmount+ "\n");
+}
+   
+void draw() 
+{
+  noStroke();
+  fill(1,fadeAmount);
+  rect(0,0,width,height);
+  for(int i=0; i<numclock; i++)
+   {
+    clock[i].update();
+    textFont(f);
+    fill(100);
+    
+    text(clock[0].secondText,width-40,height-10);
+    text(clock[0].minuteText,width-40,height-40);
+    text(clock[0].hourText,width-40,height-70);
+
+   } 
+   
+   textAlign(CENTER);
+   //text("TIME ELAPSED", width/2,height-150);
+   
+   //text(clock[0].hourText + " "+ clock[0].minuteText + " "+ clock[0].secondText ,width/2, height-120);
+   //text("HH" + " "+ "MM" + " "+ "SS" ,width/2, height-140);
+
+   
+   text(minute(),width-25,height/3-90);
+   text(hour(),width-25,height/3-120);
+   text(second(),width-25,height/3-60);
+   
+   text("CURRENT TIME",width/2, height/2);
+   text(hour() + " "+ minute() + " "+ second() ,width/2, height/2+40);
+   
+   
+  
+
+}
+
+void mouseClicked()
+{
+  randomize();
+}
+class CoolClock 
+{
+  float id,x,y,xp,yp,s,d,sColor,len,z,zp;
+ 
+  int secondCount = -1;
+  
+  int secondPointPos = 20;
+  int minutePointPos = 20;
+  int hourPointPos = 20;
+  
+  int unit = 59; // How much second make a minute/ how much minute make a hour
+  int unitHour = 3; 
+  
+  int secondText;
+  int minuteText;
+  int hourText;
+  
+  int secondNowText;
+  int minuteNowText;
+  int hourNowText;
+  
+  int i;
+  boolean issixty;
+  boolean issixtyMin;
+
+  CoolClock(float _id) {
+    id=_id;
+    init();
+  }
+
+  void init(){
+    x=xp=random(0,ScreenWidth);
+    y=yp=random(0,ScreenHeight);
+    z=zp=0;
+    s=random(2,7);
+    sColor = map(x,0,ScreenWidth,0,100);
+    len = random(1,maxLen-1);
+  }
+ 
+ void drawPoint(int i)
+   {
+     strokeWeight(10);
+     point(i,height/2);
+   } 
+   
+ void drawCurrentTime() // Draw the current hour, second and minute progress bar
+ {
+   strokeWeight(20);
+   point(15 +second()*12,height/3-70);
+   
+   for(int i = 0; i < minute(); i++)
+   {
+     strokeWeight(10);
+     point(15+ i*12.5 , height/3 -100);
+     
+   }
+   
+   for(int i = 0; i < hour(); i++)
+   {
+     strokeWeight(10);
+     point(15+20*i, height/3 -130);
+     
+   }
+ }
+ 
+  void secondControl()
+  {
+    secondCount = 0;
+    
+  }
+  
+  void drawSecond() // Draw points for time elapsed second
+  {
+    if(secondCount == 0)
+    {
+      strokeWeight(20);
+      point(secondPointPos,height-20);
+      secondPointPos+=12;
+      if(secondText >= unit)
+      {
+        secondText = 0;
+        secondPointPos = 20;
+        minuteText ++;
+      }
+      secondText++;
+    }
+  }
+  
+  void calMinute()  // check if a minute is complete
+  {
+    if(secondText == unit)
+    {
+      issixty = true;
+    }
+    
+  }
+  
+  void drawMinute()
+  {
+    if(issixty)
+    {
+      for(int i = 0; i < minuteText; i++)
+       {
+         strokeWeight(15);
+         point(minutePointPos+minutePointPos*i,height-60);  // Draw time elapse minute Progress dots
+       }
+    }
+    
+    if(minuteText >= unit)
+    {
+      issixty = false;
+      minuteText = 0;
+      hourText++;
+            print(hourText);
+
+    }
+    
+  }
+  
+  void calHour()
+  {
+    //print(minuteText);
+    if(minuteText == unit)
+    {
+      issixtyMin = true;
+    }
+  }
+
+  void drawHour()
+  {
+    if(issixtyMin)
+    {
+      print(hourText);
+      for(int i = 0; i < hourText; i++)
+       {
+         strokeWeight(15);
+         point(hourPointPos+hourPointPos*i,height-100);  // Draw time elapse minute Progress dots
+       }
+    }
+    
+    if(hourText >= 23)
+    {
+      issixtyMin = false;
+      hourText = 0;
+      hourText++;
+    }
+    
+  }
+  
+  void update()
+  {
+ 
+    
+    fill(sColor,80,70);
+    text("THE COOL CLOCK",width/2,30);
+    
+    id+=0.02;
+   // drawPoint(secondCount);
+    
+    drawSecond();
+    
+    calMinute();
+    drawMinute();
+    
+    calHour();
+    drawHour();
+    
+    drawCurrentTime();
+    d=(noise(id,x/(width/2),y/(height/2))-0.5)*(width/2);  
+    
+    x+=sin(radians(d))*s;
+    y+=sin(radians(d))*s;
+  
+    strokeWeight((maxLen - len)*strokeAmount);
+    stroke(sColor,80,90);
+    line(xp,yp,x,y);
+    xp=x;
+    yp=y;
+    len++;
+    secondCount+=30; // each time move the elapsed time dot with 30 unit
+    
+    if(secondCount>width*2.5)     
+    {
+      secondControl(); // if the sound count has reached the end, make it 
+    }
+        
+    if (len >= maxLen) init();  // reinitalize the gliters.
+  }
+   
+  
+}
