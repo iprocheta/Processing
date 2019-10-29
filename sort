@@ -1,0 +1,104 @@
+
+
+int[] a = {10, 9, 7, 101, 23, 44, 12, 78, 34, 23};  
+void setup ()
+{
+  BubbleSort();
+  println("bubble sort ...");  
+    for(int i=0;i<10;i++)  
+    {  
+       println(a[i]);  
+    } 
+    
+    SelectionSort();
+    println("selection sort List ...");  
+    for(int i=0;i<10;i++)  
+    {  
+       println(a[i]);  
+    } 
+    
+      sortStrings(); 
+        println("Strings bubble sort: "); 
+        for (int i = 0; i < arr.length; i++) 
+        {
+            println(arr[i]); 
+    } 
+    
+  sortchar();
+ // println(result); 
+      
+}
+public void BubbleSort () {   
+    for(int i=0;i<a.length-1;i++)  
+    {  
+        for (int j=i+1;j<a.length;j++)  
+        {  
+            if(a[j]<a[i]) //ascending 
+            {  
+                int temp = a[i];  
+                a[i]=a[j];  
+                a[j] = temp;   
+            }  
+        }  
+    }
+}
+
+public void SelectionSort()
+{
+  for (int i = 0; i< a.length-1; i++)  
+        {  
+            int index = i;  
+            for (int j = i + 1; j < a.length; j++){  
+                if (a[j] < a[index]) //ascending
+                {  
+                    index = j;//searching for lowest index  
+                }  
+            }  
+            int smallerNumber = a[index];   
+            a[index] = a[i];  
+            a[i] = smallerNumber;  
+        }  
+}
+
+
+//String[] arr = { "GeeksforGeeks", "Quiz", "Practice", "Gblogs", "Coding" }; 
+String[] arr = {"JavaFX", "HBase", "OpenCV", "Java", "Hadoop", "Neo4j"};
+  
+    public void sortStrings()   // Sorting strings using bubble sort 
+    { 
+        for (int j = 0; j < arr.length - 1; j++) 
+        { 
+            for (int i = j + 1; i < arr.length; i++)  
+            { 
+                if (arr[j].compareTo(arr[i]) > 0) 
+                { 
+                    String temp = arr[j]; 
+                    arr[j] = arr[i]; 
+                    arr[i] = temp; 
+                } 
+            } 
+        } 
+    } 
+String s = "dacfeb";
+
+
+char[] c = s.toCharArray();
+  
+    public void sortchar()   // Sorting strings using bubble sort 
+    {
+      for(int i=0;i<c.length-1;i++)  
+      {  
+          for (int j=i+1;j<c.length;j++)  
+          {  
+              if(c[j]<c[i]) //ascendings 
+              {  
+                  char temp = c[i];
+                  c[i] = c[j];
+                  c[j]= temp;   
+              }  
+          }  
+      }
+      
+      print(String.valueOf(c));
+      
+    }
